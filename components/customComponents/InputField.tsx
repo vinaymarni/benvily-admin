@@ -32,7 +32,6 @@ export default function InputField ({inputId, inputType, placeholder, labelName,
                 onChange={onChange}
                 autoComplete="off"
             />
-            
         </div>
     )
 };
