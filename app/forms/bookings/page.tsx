@@ -1,6 +1,5 @@
 'use client';
 
-import { AdminSidebar } from '@/components/admin-sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAtom } from 'jotai';
@@ -9,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { salons } from '@/lib/dummy-data';
 import { Star, MapPin, Clock, Plus, Edit, Trash2 } from 'lucide-react';
+import { AdminSidebar } from '@/components/admin-sidebar';
 
 export default function AdminSalonsPage() {
   const [currentUser] = useAtom(currentUserAtom);
