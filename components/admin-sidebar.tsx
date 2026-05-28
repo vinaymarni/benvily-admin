@@ -9,12 +9,12 @@ import { isAuthenticatedAtom, currentUserAtom } from '@/lib/atoms';
 import { useRouter } from 'next/navigation';
 
 const adminLinks = [
-  { href: '/admin', label: 'Dashboard', icon: BarChart3 },
-  { href: '/admin/salons', label: 'Salons', icon: Building2 },
-  { href: '/admin/services', label: 'Services', icon: Scissors },
-  { href: '/admin/stylists', label: 'Stylists', icon: Users },
-  { href: '/admin/styles', label: 'Styles', icon: StyleIcon },
-  { href: '/admin/bookings', label: 'Bookings', icon: StyleIcon },
+  { href: '/admin/dashboard', label: 'Dashboard', icon: BarChart3 },
+  { href: '/admin/dashboard/salons', label: 'Salons', icon: Building2 },
+  { href: '/admin/dashboard/services', label: 'Services', icon: Scissors },
+  // { href: '/admin/stylists', label: 'Stylists', icon: Users },
+  { href: '/admin/dashboard/styles', label: 'Styles', icon: StyleIcon },
+  { href: '/admin/dashboard/bookings', label: 'Bookings', icon: StyleIcon },
 ];
 
 export function AdminSidebar() {

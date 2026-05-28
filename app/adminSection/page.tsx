@@ -8,6 +8,7 @@ interface PageProps {
 
 export default async function Page({ searchParams }: PageProps) {
   // const params = await searchParams;
+
   // const id = params.salonId;
 
   return <AdminHome />;

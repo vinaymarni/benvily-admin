@@ -1,4 +1,5 @@
 import { User } from "./atoms";
+import { Salon, Service, Style, Stylist } from "./data";
 
 export const users: User[] = [
   {

@@ -8,15 +8,13 @@ export interface User {
   email: string;
   name: string;
   phone: string;
-  // role: UserRole;
   createdAt: string;
   status: string;
   bookings: number;
-
   salons: number,
-    services: number,
-    styles: number,
-    gst: string
+  services: number,
+  styles: number,
+  gst: string
 }
 
 // Salon atoms
@@ -124,7 +122,7 @@ export interface User {
   email: string;
   name: string;
   phone: string;
-  role: UserRole;
+  // role: UserRole;
   // bookings: Booking[];
   createdAt: string;
 }

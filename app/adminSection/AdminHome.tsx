@@ -13,7 +13,7 @@ export default function AdminHome() {
 
   const onAction = (status: string) => {
     if(status === "edit"){
-        router.push("/admin/dashboard");
+        router.push("/dashboard");
     }else{
         console.log(status)
     }
@@ -245,11 +245,11 @@ export default function AdminHome() {
 
                             <td className="px-6 py-4">
                             <div className="flex gap-3">
-                                <button onClick={()=>onAction("edit")} className="text-blue-600 cursor-pointer hover:underline">
+                                <button onClick={()=>onAction("edit")} className="text-blue-600 hover:underline">
                                 Edit
                                 </button>
 
-                                <button onClick={()=>onAction("delete")} className="text-red-600 cursor-pointer hover:underline">
+                                <button onClick={()=>onAction("delete")} className="text-red-600 hover:underline">
                                 Delete
                                 </button>
                             </div>

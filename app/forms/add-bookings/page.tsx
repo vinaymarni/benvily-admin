@@ -1,4 +1,4 @@
-import AddStylePage from "./AddStylePage";
+import AddBookingPage from "./AddBookingPage";
 
 interface PageProps {
   searchParams: Promise<{
@@ -11,5 +11,5 @@ export default async function Page({ searchParams }: PageProps) {
 
   const id = params.salonId;
 
-  return <AddStylePage id={id} />;
+  return <AddBookingPage id={id} />;
 }

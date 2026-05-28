@@ -63,7 +63,7 @@ export const localities = [
 
 export interface Salon {
   id: string;
-  value: string;
+  value?: string;
   name: string;
   location: string;
   image: string;
@@ -78,7 +78,7 @@ export type Gender = 'Male' | 'Female' | 'Unisex';
 
 export interface Service {
   id: string;
-  value: string;
+  value?: string;
   name: ServiceType;
   description: string;
   duration: number; // in minutes
@@ -89,7 +89,7 @@ export interface Service {
 
 export interface Style {
   id: string;
-  value: string;
+  value?: string;
   name: string;
   description: string;
   image: string;
@@ -98,6 +98,17 @@ export interface Style {
   availableGenders: Gender[];
   rating: number;
   reviews: number;
+}
+
+export interface Stylist {
+  id: string;
+  name: string;
+  specializations: ServiceType[];
+  image: string;
+  rating: number;
+  reviews: number;
+  salonId: string;
+  genderSpecialization: Gender;
 }
 
 export const services: Service[] = [
