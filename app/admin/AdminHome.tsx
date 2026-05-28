@@ -73,7 +73,7 @@ export default function AdminHome() {
         </div>
 
         <h2 className='font-bold mb-2 text-[20px] '>Search</h2>
-        <div className='flex items-center gap-2 pb-4 '>
+        <div className='flex items-center gap-2 pb-4 flex-wrap '>
             
             <InputField 
                 inputType="text" 
