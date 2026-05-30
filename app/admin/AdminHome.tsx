@@ -2,13 +2,18 @@
 
 import Button from '@/components/customComponents/Button';
 import InputField from '@/components/customComponents/InputField';
+import MyDatePicker from '@/components/customComponents/MyDatePicker';
 import { Header } from '@/components/header';
+import { getDateObject } from '@/lib/commonMethods';
 import { users } from '@/lib/dummy-data';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
+const initailFilters = {name: "", mobile: "", gst: "", since: "", startDate: "", endDate: "",}
 
 export default function AdminHome() {
-  const [filters, setFilters] = useState({name: "", mobile: "", gst: "", since: ""});
+  const [filters, setFilters] = useState(initailFilters);
   const router:any = useRouter();
 
   const onAction = (status: string) => {
@@ -26,8 +31,13 @@ export default function AdminHome() {
   }
 
   const onClear = () => {
-    setFilters({name: "", mobile: "", gst: "", since: ""})
+    setFilters(initailFilters)
   }
+
+  const usersStatusCount = (type:string) => {
+    const result = users.filter(each=>each.status === type);
+    return result ? result.length : 0;
+  };
 
   return (
     <>
@@ -43,15 +53,16 @@ export default function AdminHome() {
                 Welcome back, Admin
             </p>
             </div>
-
-            <button className="rounded-lg bg-black px-5 py-2 text-white hover:bg-gray-800">
-            Add User
-            </button>
+            <Link href="/forms/add-salon">
+                <button className="rounded-lg bg-black px-5 py-2 text-white hover:bg-gray-800">
+                    Add User
+                </button> 
+            </Link>
         </div>
 
         {/* Cards */}
-        <div className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl bg-white p-5 shadow">
+        <div className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4">
+            <div className="rounded-2xl bg-white p-5 shadow ">
                 <h2 className="text-sm text-gray-500">Total Users</h2>
                 <p className="mt-2 text-3xl font-bold">{users.length}</p>
             </div>
@@ -65,16 +76,26 @@ export default function AdminHome() {
             <h2 className="text-sm text-gray-500">Bookings</h2>
             <p className="mt-2 text-3xl font-bold">320</p>
             </div>
+        </div>
 
-            <div className="rounded-2xl bg-white p-5 shadow">
-            <h2 className="text-sm text-gray-500">Pending</h2>
-            <p className="mt-2 text-3xl font-bold">24</p>
+        <h2 className='font-bold mb-2 text-[20px] '>Approval Status</h2>
+        <div className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4">
+            <div className="rounded-2xl p-5 shadow bg-green-100 text-green-700">
+                <h2 className="text-sm text-gray-500 font-bold ">Approved</h2>
+                <p className="mt-2 text-3xl font-bold">{usersStatusCount("A")}</p>
+            </div>
+            <div className="rounded-2xl p-5 shadow bg-yellow-100 text-yellow-700">
+                <h2 className="text-sm text-gray-500  font-bold">Pending</h2>
+                <p className="mt-2 text-3xl font-bold">{usersStatusCount("P")}</p>
+            </div>
+            <div className="rounded-2xl p-5 shadow bg-red-100 text-red-700">
+                <h2 className="text-sm text-gray-500  font-bold">Rejected</h2>
+                <p className="mt-2 text-3xl font-bold">{usersStatusCount("R")}</p>
             </div>
         </div>
 
         <h2 className='font-bold mb-2 text-[20px] '>Search</h2>
         <div className='flex items-center gap-2 pb-4 flex-wrap w-full '>
-            
             <InputField 
                 inputType="text" 
                 placeholder="Search by Name" 
@@ -108,6 +129,30 @@ export default function AdminHome() {
                 inputClassName="p-1 pl-3 border-2 border-solid border-gray rounded-[10px] outline-none bg-white "                 
                 onChange={(e:any)=>onFilterChange(e)} 
             />
+
+            <div className='flex gap-2'>
+                <MyDatePicker 
+                    key="startDate"
+                    placeholder="Starts At" 
+                    name="startDate"
+                    value={filters.startDate} 
+                    containerClass=" sm:w-auto"
+                    inputClassName="w-[130px] p-1 pl-3 border-2 border-solid border-gray rounded-[10px] outline-none bg-white "                 
+                    onChange={(e:any)=>onFilterChange(e)} 
+                    maxDate={filters.endDate}
+                />
+                <MyDatePicker 
+                    key="endDate"
+                    placeholder="Ends At" 
+                    name="endDate"
+                    value={filters.endDate} 
+                    containerClass="sm:w-auto"
+                    inputClassName="w-[130px] p-1 pl-3 border-2 border-solid border-gray rounded-[10px] outline-none bg-white "                 
+                    onChange={(e:any)=>onFilterChange(e)} 
+                    minDate={filters.startDate}
+                />
+                
+            </div>
 
             <Button 
                 buttonClassName=" h-[30px] bg-black text-white font-bold rounded-[10px] px-4 cursor-pointer "
@@ -163,6 +208,10 @@ export default function AdminHome() {
                 </th>
 
                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                    Created Date
+                </th>
+
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
                     Bookings
                 </th>
 
@@ -181,7 +230,9 @@ export default function AdminHome() {
                     if(
                         (filters.name === "" || (user.name.toLowerCase().includes(filters.name.toLowerCase()))) &&
                         (filters.mobile === "" || (user.phone.toLowerCase().includes(filters.mobile.toLowerCase()))) &&
-                        (filters.gst === "" || (user.gst.toLowerCase().includes(filters.gst.toLowerCase())))
+                        (filters.gst === "" || (user.gst.toLowerCase().includes(filters.gst.toLowerCase()))) &&
+                        (filters.startDate === "" || (getDateObject(user.createdAt) > getDateObject(filters.startDate))) &&
+                        (filters.endDate === "" || (getDateObject(user.createdAt) < getDateObject(filters.endDate)))
                     ){
                     return(
                         <tr
@@ -232,6 +283,10 @@ export default function AdminHome() {
 
                             <td className="px-6 py-4 text-sm text-gray-600">
                             {user.styles}
+                            </td>
+
+                            <td className="px-6 py-4 text-sm text-gray-600 text-nowrap">
+                            {user.since}
                             </td>
 
                             <td className="px-6 py-4 text-sm text-gray-600 text-nowrap">

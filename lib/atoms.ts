@@ -9,6 +9,7 @@ export interface User {
   name: string;
   phone: string;
   createdAt: string;
+  since: string;
   status: string;
   bookings: number;
   salons: number,

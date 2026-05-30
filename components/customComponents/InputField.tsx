@@ -18,8 +18,11 @@ export default function InputField ({inputId, inputType, placeholder, labelName,
                     inputClassName, required, containerClass, value, onChange, name}: InputProp) {
     return (
         <div className={containerClass}>
-            {labelName != undefined && labelName != "" &&
-            <label htmlFor={inputId} className={labelClassName}>{labelName}</label>
+            {labelName && labelName != "" &&
+            <label htmlFor={inputId} className={labelClassName}>
+                {labelName}
+                {required && <span className='requiredStar'>*</span>}
+            </label>
             }
             <input 
                 name={name}
